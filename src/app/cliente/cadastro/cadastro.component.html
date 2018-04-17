@@ -1,0 +1,105 @@
+<div class="row">
+  <div class="col-md-6 offset-md-3">
+    <div class="card-body">
+      <h5 class="card-title">Cadastro do Solicitante</h5>
+      <p class="card-text">Preencha os campos para se cadastrar no -Sistema de Informações-</p>
+      <form [formGroup]="AppForm" role="form" class="text-left">
+
+        <div class="row">
+          <div class="col-md-8">
+            <app-input-component label="Nome:" errorMessage="Campo obrigatorio">
+              <input class="form-control" type="text" formControlName="name" id="name" placeholder="Digite seu nome">
+            </app-input-component>
+          </div>
+
+          <div class="col-md-4">
+            <app-input-component label="CPF/CNPJ:" errorMessage="Documento Invalido">
+              <input class="form-control" (keyup)="getMask($event)" type="text" formControlName="document" id="document" placeholder="Digite o CPF ou CNPJ">
+            </app-input-component>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-md-4">
+            <app-input-component label="Profissão:" errorMessage="Campo obrigatorio">
+              <input class="form-control col-md-12" type="text" formControlName="profession" id="profession" placeholder="Digite a Profissão">
+            </app-input-component>
+          </div>
+
+          <div class="col-md-6">
+            <app-input-component label=" Digite um E-mail:" errorMessage="Campo obrigatorio">
+              <input class="form-control col-md-12" type="email" formControlName="email" id="email" placeholder="Digite um E-mail">
+            </app-input-component>
+          </div>
+
+          <div class="col-md-2">
+            <app-input-component label="Telefone:" errorMessage="Campo obrigatorio">
+              <input class="form-control col-md-12" type="text" formControlName="phone" id="phone" placeholder="Digite um Telefone">
+            </app-input-component>
+          </div>
+
+
+        </div>
+        <div class="row">
+          <div class="col-md-2">
+            <app-input-component label="CEP:" errorMessage="Campo obrigatorio">
+              <input class="form-control" kzMask="99999-999" type="text" formControlName="zip" id="zip" placeholder="Digite um Cep">
+            </app-input-component>
+          </div>
+
+          <div class="col-md-1">
+            <app-input-component label="UF:" errorMessage="Campo obrigatorio">
+              <input class="form-control col-md-12" type="text" formControlName="state" id="state" placeholder="Digite uma UF">
+            </app-input-component>
+          </div>
+
+          <div class="col-md-5">
+            <app-input-component label="Cidade:" errorMessage="Campo obrigatorio">
+              <input class="form-control col-md-12" type="text" formControlName="city" id="city" placeholder="Cidade">
+            </app-input-component>
+          </div>
+          <div class="col-md-4">
+            <app-input-component label="Bairro:" errorMessage="Campo obrigatorio">
+              <input class="form-control col-md-12" type="text" formControlName="district" id="district" placeholder="Bairro">
+            </app-input-component>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-md-6">
+            <app-input-component label="Logradouro:" errorMessage="Campo obrigatorio">
+              <input class="form-control col-md-12" type="text" formControlName="street" id="street" placeholder="Logradouro">
+            </app-input-component>
+          </div>
+
+          <div class="col-md-2">
+            <app-input-component label="Número:" errorMessage="Campo obrigatorio">
+              <input class="form-control" type="text" formControlName="number" id="number" placeholder="Número">
+            </app-input-component>
+          </div>
+          <div class="col-md-4">
+            <app-input-component label="Complemento:" errorMessage="Campo obrigatorio">
+              <input class="form-control col-md-12" type="text" formControlName="complement" id="complement" placeholder="Complemento">
+            </app-input-component>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-6">
+            <app-input-component label="Digite uma Senha:" errorMessage="Campo obrigatorio">
+              <input class="form-control col-md-12" type="password" formControlName="password" id="password" placeholder="Digite uma Senha">
+            </app-input-component>
+          </div>
+          <div class="col-md-6">
+            <app-input-component label="Confirme sua Senha:" errorMessage="Senha não confere">
+              <input class="form-control col-md-12" type="password" formControlName="reapt_password" id="reapt_password" placeholder="Confirme sua Senha">
+            </app-input-component>
+          </div>
+        </div>
+        <button  [disabled]="!AppForm.valid" type="submit" (click)="create(AppForm.value)" class="btn btn-primary btn-custom w-md waves-effect waves-light" type="submit">Cadastrar-se
+          </button>
+        <a routerLink="/inicio/login" class="btn btn-success">Ja sou cadastrado</a>
+      </form>
+    </div>
+    <div class="clearfix"></div>
+  </div>
+</div>

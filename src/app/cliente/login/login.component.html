@@ -1,0 +1,21 @@
+<div class="row">
+  <div class="col-md-4 offset-md-4">
+    <div class="card-body">
+      <h5 class="card-title">Logar no Sistema</h5>
+      <p class="card-text">Preencha o Nome do Usuário e senha para acessar o -Sistema de Informações-</p>
+      <form [formGroup]="AppForm" method="post" class="text-left">
+        <app-input-component label="CPF/CNPJ:" errorMessage="Campo obrigatorio">
+          <input formControlName="document" (keyup)="getMask($event)" type="text" class="form-control" id="document" placeholder="CPF/CNPJ">
+        </app-input-component>
+        
+        <app-input-component label="Senha de acesso:" errorMessage="Campo obrigatorio">
+          <input formControlName="password" type="password" class="form-control" id="password" placeholder="Senha de acesso">
+        </app-input-component>       
+        <button  [disabled]="!AppForm.valid" type="submit" (click)="login(AppForm.value)" class="btn btn-primary btn-custom w-md waves-effect waves-light" type="submit">Iniciar Sessão
+          </button>
+        <a routerLink="/inicio/cadastrar-se" class="btn btn-success">Cadastrar-se</a>
+      </form>
+    </div>
+    <div class="clearfix"></div>
+  </div>
+</div>
