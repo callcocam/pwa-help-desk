@@ -65,44 +65,32 @@
                         </div>
                     </li>
 
-                    <li class="list-inline-item dropdown notification-list">
+                    <li *ngIf="user" class="list-inline-item dropdown notification-list">
                         <a class="nav-link dropdown-toggle waves-effect nav-user" data-toggle="dropdown" href="#" role="button" aria-haspopup="false"
                             aria-expanded="false">
-                            <img src="assets/images/users/avatar-1.jpg" alt="user" class="rounded-circle">
+                            <img src="{{ user.cover }}" alt="user" class="rounded-circle">
                         </a>
                         <div class="dropdown-menu dropdown-menu-right profile-dropdown " aria-labelledby="Preview">
                             <!-- item-->
                             <div class="dropdown-item noti-title">
                                 <h5 class="text-overflow">
-                                    <small class="text-white">Welcome ! John</small>
+                                    <small class="text-white">Welcome <br> {{ user.name }}</small>
                                 </h5>
                             </div>
 
                             <!-- item-->
-                            <a href="javascript:void(0);" class="dropdown-item notify-item">
+                            <a  routerLink="/profile" class="dropdown-item notify-item">
                                 <i class="mdi mdi-account"></i>
                                 <span>Profile</span>
                             </a>
-
                             <!-- item-->
-                            <a href="javascript:void(0);" class="dropdown-item notify-item">
-                                <i class="mdi mdi-settings"></i>
-                                <span>Settings</span>
-                            </a>
-
-                            <!-- item-->
-                            <a href="javascript:void(0);" class="dropdown-item notify-item">
-                                <i class="mdi mdi-lock-open"></i>
-                                <span>Lock Screen</span>
-                            </a>
-
-                            <!-- item-->
-                            <a href="javascript:void(0);" class="dropdown-item notify-item">
+                            <a href="javascript:void(0);" (click)="logout()" class="dropdown-item notify-item">
                                 <i class="mdi mdi-logout"></i>
                                 <span>Logout</span>
                             </a>
                         </div>
                     </li>
+                    
 
                 </ul>
             </div>
@@ -121,27 +109,30 @@
                 <!-- Navigation Menu-->
                 <ul class="navigation-menu">
 
-                    <li class="has-submenu">
-                        <a routerLink="/inicio">
+                    <li routerLinkActive="active">
+                        <a routerLink="/bem-vindo">
                             <i class="ti-home"></i>inicio</a>
                     </li>
-                    <li>
+                    <li routerLinkActive="active">
                         <a routerLink="/informacao-mundo">
                             <i class=" ti-world"></i>Acesso à Informação no Mundo</a>
                     </li>
-                    <li>
+                    <li routerLinkActive="active">
                         <a routerLink="/lei-informaco-mundo">
                             <i class="ti-server"></i>Sis'S</a>
                     </li>
-                    <li>
+                    <li routerLinkActive="active">
                         <a routerLink="/manual">
                             <i class="ti-help"></i>Manual</a>
                     </li>
-                    <li>
+                    <li routerLinkActive="active">
                         <a routerLink="/estatisticas">
                             <i class="ti-bar-chart"></i>Estátisticas</a>
                     </li>
-
+                    <li routerLinkActive="active" *ngIf="!user">
+                        <a routerLink="/login">
+                            <i class=" ti-lock"></i>Login</a>
+                    </li>
 
                 </ul>
                 <!-- End navigation menu -->

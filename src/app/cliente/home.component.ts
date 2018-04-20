@@ -1,3 +1,4 @@
+import { LocalStorageService } from './../services/local-storage.service';
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 
@@ -8,10 +9,17 @@ import { Router } from '@angular/router';
 })
 export class HomeComponent implements OnInit {
 
-  constructor(private router: Router) { }
+  constructor(private router: Router,
+    private storage: LocalStorageService) { }
 
   ngOnInit() {
-    this.router.navigate(['inicio/login']);
+    if (!this.storage.get('token')) {    
+      this.router.navigate(['login']);
+    }else{
+      this.router.navigate(['bem-vindo']);
+    }
+
+
   }
 
 }

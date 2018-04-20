@@ -17,6 +17,9 @@ export class ShareService {
   public resultado = new Cep();
   constructor(public http: HttpClient) { }
 
+  public getCover(cover:string) {
+    return `${this.API.base}${cover}`;
+  }
   public converterRespostaParaCep(cepNaResposta): Cep {
   
     let cep = new Cep();

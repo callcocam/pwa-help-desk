@@ -1,10 +1,17 @@
+import { JwtTokenService } from './jwt-token.service';
 import { Injectable } from "@angular/core";
 import { ShareService } from "../../../services/share.service";
 import { Observable } from "rxjs/Observable";
 
 @Injectable()
 export class AuthService {
-  constructor(private shareService: ShareService) {}
+  
+  public check: Boolean = false;
+  constructor(private shareService: ShareService,
+    public jwtToken: JwtTokenService
+  ) {
+    this.check = this.jwtToken.token ? true : false;
+  }
 
   login(data): Observable<any> {
     return this.shareService.http.post(

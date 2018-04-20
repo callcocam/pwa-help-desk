@@ -1,0 +1,158 @@
+<!-- Page-Title -->
+<div class="row">
+  <div class="col-sm-12">
+    <div class="page-title-box">
+      <div class="btn-group pull-right">
+        <ol class="breadcrumb hide-phone p-0 m-0">
+          <li class="breadcrumb-item">
+            <a routerLink="/inicio">Inicio</a>
+          </li>
+          <li class="breadcrumb-item active">Minha conta</li>
+        </ol>
+      </div>
+
+    </div>
+  </div>
+</div>
+<!-- end page title end breadcrumb -->
+
+
+<div class="row">
+  <div class="col-xl-3 col-lg-4">
+    <div class="text-center card-box">
+      <div class="member-card">
+        <div class="thumb-xl member-thumb m-b-10 center-block">
+          <img [src]="image" class="rounded-circle img-thumbnail" alt="profile-image">
+        </div>
+
+        <div class="">
+          <h5 class="m-b-5">{{ user.name }}</h5>
+          <p class="text-muted">@{{ user.profession }}</p>
+        </div>
+
+        <div class="text-left m-t-40">
+          <p class="text-muted font-13">
+            <strong>Nome completo :</strong>
+            <span class="m-l-15">{{ user.name }}</span>
+          </p>
+
+          <p class="text-muted font-13">
+            <strong>Telefone :</strong>
+            <span class="m-l-15">{{ user.phone }}</span>
+          </p>
+
+          <p class="text-muted font-13">
+            <strong>Email :</strong>
+            <span class="m-l-15">{{ user.email }}</span>
+          </p>
+
+          <p class="text-muted font-13">
+            <strong>Endereço :</strong>
+            <span class="m-l-15">
+              {{ user.street }} - {{ user.complement }}
+            </span>
+          </p>
+          <p class="text-muted font-13">
+            <strong>Bairro :</strong>
+            <span class="m-l-15">
+              {{ user.district }}
+            </span>
+          </p>
+          <p class="text-muted font-13">
+            <strong>Numero :</strong>
+            <span class="m-l-15">
+              {{ user.number }}
+            </span>
+          </p>
+          <p class="text-muted font-13">
+            <strong>Cidade :</strong>
+            <span class="m-l-15">
+              {{ user.city }} - {{ user.state }} - {{ user.zip }}
+
+            </span>
+          </p>
+        </div>
+
+        <ul class="social-links list-inline m-t-30">
+          <li class="list-inline-item">
+            <a title="" data-placement="top" data-toggle="tooltip" class="tooltips" href="" data-original-title="Facebook">
+              <i class="fa fa-facebook"></i>
+            </a>
+          </li>
+          <li class="list-inline-item">
+            <a title="" data-placement="top" data-toggle="tooltip" class="tooltips" href="" data-original-title="Twitter">
+              <i class="fa fa-twitter"></i>
+            </a>
+          </li>
+          <li class="list-inline-item">
+            <a title="" data-placement="top" data-toggle="tooltip" class="tooltips" href="" data-original-title="Skype">
+              <i class="fa fa-skype"></i>
+            </a>
+          </li>
+        </ul>
+
+      </div>
+
+    </div>
+    <!-- end card-box -->
+  </div>
+  <!-- end col -->
+
+
+  <div class="col-lg-8 col-xl-9">
+    <div class="">
+      <div class="card-box">
+        <ul class="nav nav-tabs tabs-bordered">
+          <li class="nav-item">
+            <a href="#home" data-toggle="tab" aria-expanded="false" class="nav-link">
+              Solicitações
+            </a>
+          </li>
+          <li class="nav-item">
+            <a href="#settings" data-toggle="tab" aria-expanded="false" class="nav-link">
+              Meus Dados
+            </a>
+          </li>
+        </ul>
+        <div class="tab-content">
+          <div class="tab-pane active" id="home">
+              <div class="row">
+
+                  <!-- Left sidebar -->
+                  <div class="col-xl-3 col-lg-4">
+                
+                      <div class="p-20">
+                          <a routerLinkActive="active"  routerLink="/profile/create" class="btn btn-danger btn-rounded btn-custom btn-block waves-effect waves-light">Compose</a>
+                          <h4 class="font-18 m-t-40">Status</h4>
+                             <div class="list-group b-0 mail-list">
+                              <a  [routerLink]="['list',0]" class="list-group-item b-0"><span class="fa fa-circle text-info m-r-10"></span>Todas</a>
+                              <a  [routerLink]="['list',1]" class="list-group-item b-0"><span class="fa fa-circle text-warning m-r-10"></span>Abertas</a>
+                              <a  [routerLink]="['list',2]" class="list-group-item b-0"><span class="fa fa-circle text-purple m-r-10"></span>Respondidas</a>
+                              <a  [routerLink]="['list',3]" class="list-group-item b-0"><span class="fa fa-circle text-pink m-r-10"></span>Concluidas</a>
+                              <a  [routerLink]="['list',4]" class="list-group-item b-0"><span class="fa fa-circle text-success m-r-10"></span>Regeitadas</a>
+                          </div>
+                
+                      </div>
+                
+                  </div>
+                  <!-- End Left sidebar -->
+                
+                  <!-- Right Sidebar -->
+                  <div class="col-xl-9 col-lg-8">
+                      <router-outlet></router-outlet>                   
+                  </div> <!-- end Col-9 -->
+                
+                </div><!-- End row -->
+          
+          </div>
+          <div class="tab-pane" id="settings">
+            <app-dados></app-dados>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+  <!-- end col -->
+</div>
+<!-- end row -->

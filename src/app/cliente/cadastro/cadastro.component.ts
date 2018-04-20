@@ -40,6 +40,7 @@ export class CadastroComponent implements OnInit {
 
     this.AppForm = this.formBuilder.group({
       empresa: this.formBuilder.control("", [Validators.required]),
+      access: this.formBuilder.control("", [Validators.required]),
       name: this.formBuilder.control("", [Validators.required]),
       profession: this.formBuilder.control("", []),
       email: this.formBuilder.control("", [
@@ -65,6 +66,7 @@ export class CadastroComponent implements OnInit {
       reapt_password: senhaConfirmaFormControl
     });
     this.AppForm.controls["empresa"].patchValue(1);
+    this.AppForm.controls["access"].patchValue(3);
     this.AppForm.controls["zip"].valueChanges.subscribe(result => {
       let cep: string;
       cep = result.replace(/\D/g, "");

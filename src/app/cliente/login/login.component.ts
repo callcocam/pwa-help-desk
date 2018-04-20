@@ -1,3 +1,4 @@
+import { LocalStorageService } from './../../services/local-storage.service';
 import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
@@ -12,7 +13,12 @@ import { AuthService } from './services/auth.service';
 export class LoginComponent implements OnInit {
 
   public AppForm: FormGroup;
-  constructor( private formBuilder: FormBuilder, private shareService: ShareService, private authService: AuthService) { }
+  constructor(
+    private formBuilder: FormBuilder,
+    private shareService: ShareService,
+    private authService: AuthService,
+    private router: Router,
+    private storage: LocalStorageService) { }
 
   ngOnInit() {
     this.AppForm = this.formBuilder.group({
@@ -26,15 +32,21 @@ export class LoginComponent implements OnInit {
       ])
     });
   }
-  getMask($event){
+  getMask($event) {
     this.AppForm.controls["document"].patchValue(this.shareService.convertToCpfCnpj($event.target.value));
- }
- login(data){
-  this.authService.login(data).subscribe(
-            resp=>{
-              console.log(resp)
-            }
-  )
-    
- }
+  }
+  login(data) {
+    this.authService.login(data).subscribe(
+      resp => {
+        if (resp.result.user) {
+          this.storage.set('token',resp.result.token)
+          this.storage.setObject(this.storage.USER_KEY,resp.result.user)
+          this.authService.check = true
+          //this.router.navigate(['inicio']);
+          window.location.href = '/'
+        }
+      }
+    )
+
+  }
 }
