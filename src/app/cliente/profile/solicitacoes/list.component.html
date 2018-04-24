@@ -22,19 +22,26 @@
   <div class="panel-body p-0">
     <div class="table-responsive">
       <table class="table table-hover mails m-0">
-        <tbody>
-          <tr *ngFor="let solicitacoe in solicitacoes" class="unread">
-            <td class="mail-select" style="width: 5px; min-width:2px;">
-              <i class="fa fa-circle m-l-0 text-warning"></i>
+        <tbody *ngIf="solicitacoes">
+          <tr *ngFor="let solicitacoe of solicitacoes" class="unread">
+            <td class="mail-select" style="width: 5px; min-width:2px;" title="{{ status[solicitacoe.status] }}">
+              <i class="fa fa-circle m-l-0 text-{{ statusColor[solicitacoe.status] }}"></i>
             </td>
             <td>
-              <a href="mail-read.html" class="email-name">Google Inc</a>
+              <a [routerLink]="['/profile/edit',solicitacoe.id]" class="email-name">{{ solicitacoe.description }}</a>
             </td>
             <td style="width: 20px;">
               <i class="fa fa-paperclip"></i>
             </td>
             <td class="text-right" style="width: 130px;">
-              07:23 AM
+              {{ solicitacoe.created_at }}
+            </td>
+          </tr>
+        </tbody>
+        <tbody *ngIf="!solicitacoes">
+          <tr>
+            <td class="mail-select" style="width: 100%; min-width:2px;">
+              Nemhuma solicitação encontrada
             </td>
           </tr>
         </tbody>

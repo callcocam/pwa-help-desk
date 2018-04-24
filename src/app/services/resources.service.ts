@@ -73,7 +73,7 @@ export class SearchCriteria {
   public zfTablePage: number = 1;
   public rowAction: string = "";
   public zfTableQuickSearch: string = "";
-  public valuesState: string = "";
+  public zfTableStatus: string = "";
   public start_date: string = "";
   public end_date: string = "";
 }

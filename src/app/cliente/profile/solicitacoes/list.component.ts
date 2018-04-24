@@ -9,23 +9,33 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ListComponent implements OnInit {
   private id;
+  public status=[
+    "Todas","Aberto","Em tramitacao","Respondido","Negado"
+  ]
+  public statusColor=[
+    "info","warning","success","purple","pink"
+  ]
+
   public solicitacoes;
   constructor(private route: ActivatedRoute, private resources: ResourcesService) { }
 
   ngOnInit() {
+    this.solicitacoes = null;
     this.route.params.subscribe(params => {
       this.id = params['id'];
-       this.getSolicitacoes();
-      console.log(this.solicitacoes)
+       this.getSolicitacoes();  
     })
   }
 
   getSolicitacoes() {
-      console.log(this.id)
       this.resources.path = 'solicitacao'
-      this.resources.getList({valuesState:this.id}).subscribe(
+      this.resources.getList({zfTableStatus:this.id}).subscribe(
         resp=>{
-          this.solicitacoes = resp.result
+          if(resp.result){
+            this.solicitacoes = resp.result.sEcho;
+            console.log(this.solicitacoes)
+           }
+          
         }
       )
   }

@@ -10,8 +10,8 @@ import { CadastroComponent } from './cadastro.component';
   imports: [
     CommonModule,
     FormsModule,
-     ReactiveFormsModule,
-     ComponentsModule
+    ReactiveFormsModule,
+    ComponentsModule
   ],
   declarations: [
     CadastroComponent

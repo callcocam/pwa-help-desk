@@ -17,7 +17,6 @@ export class HeaderComponent implements OnInit {
 
   ngOnInit() {
     this.user = this.storage.getObject(this.storage.USER_KEY);
-    console.log(this.user)
     if(this.user){
       this.user.cover = this.share.getCover(this.user.cover)
     }

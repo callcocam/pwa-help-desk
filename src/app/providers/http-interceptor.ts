@@ -11,7 +11,7 @@ import {Observable} from 'rxjs/Observable';
 export class HttpInterceptorProvider implements HttpInterceptor {
 
     constructor(public http: HttpClient) {
-        console.log('Hello MyHttpInterceptorProvider Provider');
+       // console.log('Hello MyHttpInterceptorProvider Provider');
     }
 
     intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {

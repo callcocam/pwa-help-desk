@@ -1,3 +1,41 @@
-<p>
-  edit works!
-</p>
+<div class="row">
+    <div class="col-sm-12">
+        <div class="card-box m-t-20">
+            <div class="p-20">
+                <form [formGroup]="AppForm" role="form">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <app-input-component label="Destino:" errorMessage="Campo obrigatorio">
+                                <input class="form-control col-md-12" type="text" formControlName="receptionby" id="receptionby" placeholder="N° do protocolo">
+                            </app-input-component>
+                        </div>
+                        <div class="col-md-6">
+                            <app-input-component label="Forma de retorno:" errorMessage="Campo obrigatorio">
+                                <select class="form-control col-md-12" formControlName="returnform" id="returnform">
+                                    <option *ngFor="let item of returnform" [value]="item.id" [selected]="solicitacoe.returnform == item.id">{{ item.name }}</option>
+
+                                </select>
+                            </app-input-component>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="summernote">
+                            <summernote [options]="options" [disabled]="disabled"></summernote>
+                        </div>
+                    </div>
+
+                    <div class="btn-toolbar form-group m-b-0">
+                        <div class="pull-right">
+                            <button class="btn btn-success waves-effect waves-light">
+                                <span>Enviar solicitação</span>
+                                <i class="fa fa-send m-l-10"></i>
+                            </button>
+                        </div>
+                    </div>
+
+                </form>
+            </div>
+        </div>
+
+    </div>
+</div>

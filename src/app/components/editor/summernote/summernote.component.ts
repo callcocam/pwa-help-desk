@@ -1,0 +1,147 @@
+/// <reference path="./summernote.d.ts" />
+
+//import * as $ from 'jquery'; // old code. doesn't work
+declare let $: any;
+
+import {
+    Component,
+    ElementRef,
+    forwardRef,
+    Input,
+    Output,
+    EventEmitter,
+    OnDestroy,
+    OnInit
+} from '@angular/core';
+
+import {
+    NG_VALUE_ACCESSOR,
+    ControlValueAccessor
+} from '@angular/forms';
+
+const SUMMERNOTE_VALUE_ACCESSOR = {
+    provide: NG_VALUE_ACCESSOR,
+    useExisting: forwardRef(() => SummernoteComponent),
+    multi: true
+};
+
+@Component({
+    selector: 'summernote',
+    templateUrl: './summernote.component.html',
+    providers: [SUMMERNOTE_VALUE_ACCESSOR]
+})
+export class SummernoteComponent implements OnInit, OnDestroy, ControlValueAccessor {
+    @Input()
+    set options(options: SummernoteOptions) {
+        this._options = options;
+        this.addCallbacks();
+        this.refreshOptions();
+    }
+
+    get options(): SummernoteOptions {
+        return this._options || {};
+    }
+
+    @Input()
+    set disabled(disabled: boolean) {
+        if (disabled != null) {
+            this._disabled = disabled;
+            $(this.element.nativeElement).find('.summernote').summernote(disabled ? 'disable' : 'enable');
+            this.refreshOptions();
+        }
+    }
+
+    get disabled(): boolean {
+        return this._disabled;
+    }
+
+    private _empty: boolean;
+
+    @Output() emptyChange: EventEmitter<boolean> = new EventEmitter<boolean>();
+
+    get empty() {
+        return this._empty;
+    }
+
+    set empty(value: boolean) {
+        if (this._empty != value) {
+            this._empty = value;
+            this.emptyChange.emit(value);
+        }
+    }
+
+    private _disabled: boolean = false;
+
+    private _options: SummernoteOptions;
+
+    private onTouched = () => {
+    };
+    private onChange: (value: string) => void = () => {
+        console.log(this._value)
+    };
+
+    constructor(private element: ElementRef) {
+
+    }
+
+    private _value: string;
+
+    set value(value: string) {
+        this._value = value;
+    }
+
+    get value(): string {
+        return this._value;
+    }
+
+    private refreshOptions() {
+        $(this.element.nativeElement).find('.summernote').summernote(this.options);
+        if (this.options.tooltip != undefined && !this.options.tooltip)
+            (<any>$(this.element.nativeElement).find('.note-editor button.note-btn')).tooltip('destroy');
+    }
+
+    private addCallbacks() {
+        this.options.callbacks = {
+            onChange: (contents: string, $editable: boolean) => {
+                this.refreshEmpty();
+                this.onChange(contents);
+            },
+            onBlur: () => {
+                this.onTouched();
+            }
+        };
+    }
+
+    private refreshEmpty() {
+        this.empty = <boolean>(<any>$(this.element.nativeElement).find('.summernote').summernote('isEmpty'));
+    }
+
+    ngOnInit() {
+        if (this.options == null) {
+            this.options = {};
+        }
+        this.refreshEmpty();
+    }
+
+    ngOnDestroy() {
+        $(this.element.nativeElement).find('.summernote').summernote('destroy');
+    }
+
+    writeValue(code: string) {
+        this.value = code;
+        $(this.element.nativeElement).find('.summernote').summernote('code', code);
+        this.refreshEmpty();
+    }
+
+    getCode(): string {
+        return $(this.element.nativeElement).find('.summernote').summernote('code');
+    }
+
+    registerOnChange(fn: any) {
+        this.onChange = fn;
+    }
+
+    registerOnTouched(fn: any) {
+        this.onTouched = fn;
+    }
+}

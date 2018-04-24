@@ -1,3 +1,5 @@
+import { Ng2Summernote } from './../../../components/ng2-summernote';
+import { SummernoteModule } from './../../../components/editor/summernote/summernote.module';
 import { ComponentsModule } from './../../../components/components.module';
 
 import { NgModule } from '@angular/core';
@@ -10,13 +12,16 @@ import { ViewComponent } from './view/view.component';
 import { ListComponent } from './list.component';
 import { DadosComponent } from './components/dados.component';
 import { UploadFileService, FormUploadComponent } from './../../../components/form-upload/index';
+import { TinymceModule } from '../../../components/editor/tinymce';
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
     ReactiveFormsModule,
     ComponentsModule,
-    SolicitacoesRoutingModule
+    SolicitacoesRoutingModule,
+    SummernoteModule,
+    TinymceModule
   ],
   declarations: [
     CreateComponent,
@@ -24,10 +29,12 @@ import { UploadFileService, FormUploadComponent } from './../../../components/fo
     ViewComponent,
     ListComponent,
     DadosComponent,
-    FormUploadComponent
+    FormUploadComponent,
+    Ng2Summernote
   ],
   exports: [
-    DadosComponent
+    DadosComponent,
+    Ng2Summernote
   ],
   providers: [
     UploadFileService

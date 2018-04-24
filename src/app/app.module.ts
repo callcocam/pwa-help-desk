@@ -1,9 +1,12 @@
+
+import { NgModule, ErrorHandler } from '@angular/core';
 import { HttpInterceptorProvider } from './providers/http-interceptor';
 import { BrowserModule } from '@angular/platform-browser';
-import { NgModule } from '@angular/core';
+
 
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 
+import { ApplicationErrorHandler } from './app.error-handler';
 import { AppComponent } from './app.component';
 import { AdminModule } from './admin/admin.module';
 import { AppRountingModule } from './app-rounting.module';
@@ -20,11 +23,16 @@ import { LocalStorageService } from './services/local-storage.service';
     AdminModule,
     ClientModule
   ],
-  providers: [LocalStorageService,
+  providers: [
+    LocalStorageService,
       {
         provide: HTTP_INTERCEPTORS,
         useClass: HttpInterceptorProvider,
         multi: true
+      },
+      {
+        provide: ErrorHandler,
+        useClass: ApplicationErrorHandler
       }
     ],
   bootstrap: [AppComponent]

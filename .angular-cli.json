@@ -16,13 +16,16 @@
       "testTsconfig": "tsconfig.spec.json",
       "prefix": "app",
       "styles": [
-        "assets/css/bootstrap.min.css",
+        "assets/css/bootstrap.min.css", 
+        "../node_modules/codemirror/lib/codemirror.css",
+        "../node_modules/summernote/dist/summernote.css",
         "assets/css/icons.css",
         "assets/css/style.css",
         "styles.css"
       ],
       "scripts": [
         "../node_modules/jquery/dist/jquery.min.js",
+        "../node_modules/summernote/dist/summernote.js",
         "assets/js/popper.min.js",
         "../node_modules/bootstrap/dist/js/bootstrap.js"
       ],
