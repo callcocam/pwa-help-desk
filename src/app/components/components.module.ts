@@ -1,22 +1,13 @@
 import { NgModule, ModuleWithProviders } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { InputComponent } from './input/input.component';
 @NgModule({
   imports: [
     CommonModule
   ],
-  declarations: [InputComponent],
-  exports:[
-    InputComponent
+  declarations: [],
+  exports: [
+    
   ]
 })
-export class ComponentsModule { 
-  static forRoot(): ModuleWithProviders {
-    return {
-      ngModule: ComponentsModule,
-      providers: [
-        
-      ]
-
-    };
-  } }
+export class ComponentsModule {
+}

@@ -4,6 +4,7 @@ import { ShareService } from './../../../../services/share.service';
 import { ResourcesService } from './../../../../services/resources.service';
 import { Validators, FormBuilder, FormGroup } from '@angular/forms';
 import { Component, OnInit } from '@angular/core';
+import { NotificationService } from '../../../../components/snackbar/notification.service';
 
 @Component({
   selector: 'app-create',
@@ -37,16 +38,18 @@ export class CreateComponent implements OnInit {
     private localStorage: LocalStorageService,
     private resourse: ResourcesService,
     private formBuilder: FormBuilder,
-    private shareService: ShareService) { }
+    private shareService: ShareService,
+    private notify: NotificationService) { }
 
   ngOnInit() {
-
+   
     this.getSecretaria();
     this.AppForm = this.formBuilder.group({
       empresa: this.formBuilder.control(this.localStorage.getObject(this.localStorage.USER_KEY).empresa, [Validators.required]),
       client: this.formBuilder.control(this.localStorage.getObject(this.localStorage.USER_KEY).id, [Validators.required]),
       description: this.formBuilder.control("", [Validators.required]),
       receptionby: this.formBuilder.control("", [Validators.required]),
+      instancy: this.formBuilder.control("1", [Validators.required]),
       returnform: this.formBuilder.control("", [Validators.required]),
     });
 
@@ -64,14 +67,15 @@ export class CreateComponent implements OnInit {
       }
     )
   }
-  onChange(event){
+  onChange(event) {
     console.log(event)
   }
-  enviarSolicitacao(data){
+  enviarSolicitacao(data) {
     this.resourse.path = "solicitacao"
     this.resourse.create(data).subscribe(
-      resp=>{
+      resp => {
         console.log(resp)
+        this.notify.notify(resp.result.msg)
       }
     )
   }

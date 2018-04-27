@@ -29,9 +29,8 @@ export class FormUploadComponent implements OnInit {
 
   upload() {
     this.progress.percentage = 0;
-
     this.currentFileUpload = this.selectedFiles.item(0);
-    this.uploadService
+     this.uploadService
       .pushFileToStorage(this.currentFileUpload, this.rota,this.parent, this.assets, this.empresa)
       .subscribe(event => {
         if (event.type === HttpEventType.UploadProgress) {

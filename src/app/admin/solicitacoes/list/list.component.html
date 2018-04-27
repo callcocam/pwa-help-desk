@@ -1,0 +1,31 @@
+<div class="card-box">
+    <h4 class="m-t-0 header-title">Contextual classes</h4>
+    <p class="text-muted font-14 m-b-20">
+        Use contextual classes to color table rows or individual cells.
+    </p>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Protocolo</th>
+                <th>Descrição</th>
+                <th>Data</th>
+                <th>Cliente</th>
+                <th>Status</th>
+                <th>#</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let solicitacao of solicitacoes" [class.table-info]="solicitacao.status==1" [class.table-success]="solicitacao.status==2"
+                [class.table-warning]="solicitacao.status==3" [class.table-danger]="solicitacao.status==4">
+                <th scope="row">{{ solicitacao.protocolo }}</th>
+                <td>{{ solicitacao.description }}</td>
+                <td>{{ solicitacao.created_at }}</td>
+                <td>{{ solicitacao.client.name }}</td>
+                <td>{{ status[solicitacao.status] }}</td>
+                <td><a [routerLink]="['/admin/solicitacoes',solicitacao.id]" class="btn btn-success">Responder</a></td>
+            </tr>
+
+        </tbody>
+    </table>
+</div>

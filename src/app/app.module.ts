@@ -1,8 +1,9 @@
+import { NotificationService } from './components/snackbar/notification.service';
 
 import { NgModule, ErrorHandler } from '@angular/core';
 import { HttpInterceptorProvider } from './providers/http-interceptor';
 import { BrowserModule } from '@angular/platform-browser';
-
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 
@@ -11,20 +12,23 @@ import { AppComponent } from './app.component';
 import { AdminModule } from './admin/admin.module';
 import { AppRountingModule } from './app-rounting.module';
 import { ClientModule } from './cliente/client.module';
-import { LocalStorageService } from './services/local-storage.service';
+import { SnackbarComponent } from './components/snackbar/snackbar.component';
+
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    SnackbarComponent
   ],
   imports: [
     BrowserModule,
     HttpClientModule,
     AppRountingModule,
     AdminModule,
-    ClientModule
+    ClientModule,
+    BrowserAnimationsModule
   ],
   providers: [
-    LocalStorageService,
+    NotificationService,
       {
         provide: HTTP_INTERCEPTORS,
         useClass: HttpInterceptorProvider,

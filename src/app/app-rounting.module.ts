@@ -33,12 +33,12 @@ import { ListComponent, ViewComponent, CreateComponent, EditComponent } from './
             path: 'inicio',
             component: HomeComponent,
             data: { breadcrumb: 'Inicio' },
-            
+
           },
           {
             path: 'bem-vindo',
             component: StartComponent,
-            data: { breadcrumb: 'DashBoard'}
+            data: { breadcrumb: 'DashBoard' }
           },
           {
             path: 'login',
@@ -57,30 +57,31 @@ import { ListComponent, ViewComponent, CreateComponent, EditComponent } from './
             component: ProfileComponent,
             data: { breadcrumb: 'Minha Conta' },
             canActivate: [AuthGuardService],
-            children:[
+            children: [
               {
                 path: 'list/:id',
                 component: ListComponent,
                 canActivate: [AuthGuardService],
-                data: { breadcrumb: 'List'}
+                data: { breadcrumb: 'List' },
+                children: [
+                  {
+                    path: '',
+                    redirectTo: 'list/0',
+                    pathMatch: 'full'
+                  }
+                ]
               },
-               {
+              {
                 path: 'view/:id',
                 component: ViewComponent,
                 canActivate: [AuthGuardService],
-                data: { breadcrumb: 'List'}
+                data: { breadcrumb: 'List' }
               },
               {
                 path: 'create',
                 component: CreateComponent,
                 canActivate: [AuthGuardService],
-                data: { breadcrumb: 'List'}
-              },
-              {
-                path: 'edit/:id',
-                component: EditComponent,
-                canActivate: [AuthGuardService],
-                data: { breadcrumb: 'Edit'}
+                data: { breadcrumb: 'List' }
               }
             ]
           },

@@ -3,7 +3,10 @@ import { Injectable } from '@angular/core';
 @Injectable()
 export class LocalStorageService {
 
+  public ADMIN_KEY = "admin";
   public USER_KEY = "user";
+  public USER_TOKEN = "clientToken";
+  public ADMIN_TOKEN = "adminToken";
 
   constructor() { }
 

@@ -1,3 +1,4 @@
+import { SharedModule } from './../../shared/shared.module';
 
 import { FormsModule } from '@angular/forms';
 import { ReactiveFormsModule } from '@angular/forms';
@@ -11,7 +12,7 @@ import { CadastroComponent } from './cadastro.component';
     CommonModule,
     FormsModule,
     ReactiveFormsModule,
-    ComponentsModule
+    SharedModule
   ],
   declarations: [
     CadastroComponent

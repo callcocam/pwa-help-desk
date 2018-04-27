@@ -1,3 +1,4 @@
+import { LocalStorageService } from './local-storage.service';
 import { Observable } from 'rxjs/Observable';
 import { MEAT_API } from './../api';
 import { ShareService } from './share.service';
@@ -13,55 +14,57 @@ export class ResourcesService {
   constructor(
     private http: HttpClient,
     private jwtToken: JwtTokenService,
-    private shared: ShareService
+    private shared: ShareService,
+    private localStorage:LocalStorageService
   ) {
     this.BASE_URL = this.shared.API.url;
   }
  
   merge(queryString?:any) {
-      this.httpOptions = {
+    if(this.localStorage.get(this.localStorage.USER_KEY)){
+      queryString.empresa = this.localStorage.getObject(this.localStorage.USER_KEY).empresa
+    }
+    if(this.localStorage.get(this.localStorage.ADMIN_KEY)){
+      queryString.empresa = this.localStorage.getObject(this.localStorage.ADMIN_KEY).empresa
+    }
+    this.httpOptions = {
           params: queryString
         }
      return this.httpOptions;
   }
   getItem(id?: any): Observable<any> {
-    let criteria = new SearchCriteria();
-    return this.http.get(`${this.BASE_URL}${this.path}/${id}`, this.merge(criteria));
+    return this.http.get(`${this.BASE_URL}${this.path}/${id}`);
   }
 
-  getList(params?: any): Observable<any> {
-    return this.http.get(`${this.BASE_URL}${this.path}`, this.merge(params));
+  getList(criteria?: any): Observable<any> {
+    if(criteria){
+      return this.http.get(`${this.BASE_URL}${this.path}`, this.merge(criteria));
+    }
+    return this.http.get(`${this.BASE_URL}${this.path}`);
   }
 
-  create(data) {
-    let criteria = new SearchCriteria();
-    return this.http.post(`${this.BASE_URL}${this.path}`, data, this.merge(criteria));
+  create(data): Observable<any> {
+    return this.http.post(`${this.BASE_URL}${this.path}`, data);
   }
 
-  update(data, params?) {
-    let criteria = new SearchCriteria();
-    Object.assign(criteria, params);
+  update(data, params?): Observable<any> {
     return this.http.put(
-      `${this.BASE_URL}${this.path}`,
-      data,
-      this.merge(criteria)
+      `${this.BASE_URL}${this.path}/${params}`,
+      data
     );
   }
-  updateStatus(data, params?) {
-    let criteria = new SearchCriteria();
-    Object.assign(criteria, params);
+  updateStatus(data, params?,criteria?): Observable<any> {
     return this.http.put(
       `${this.BASE_URL}${this.path}?action=status`,
       data,
       this.merge(criteria)
     );
   }
-  delete(id: number, params?) {
+  delete(id: number, params?): Observable<any> {
     let criteria = new SearchCriteria();
     Object.assign(criteria, params);
     return this.http.delete(
-      `${this.BASE_URL}${this.path}/${id}`,
-      this.merge(criteria)
+      `${this.BASE_URL}${this.path}/${id}`
     );
   }
 
@@ -69,12 +72,13 @@ export class ResourcesService {
 export class SearchCriteria {
   public zfTableItemPerPage: number = 10;
   public zfTableOrder: string = "asc";
-  public zfTableColumn: string = "id";
+  public zfTableColumn;
   public zfTablePage: number = 1;
   public rowAction: string = "";
   public zfTableQuickSearch: string = "";
-  public zfTableStatus: string = "";
+  public zfTableStatus;
   public start_date: string = "";
   public end_date: string = "";
+  public empresa;  
 }
 

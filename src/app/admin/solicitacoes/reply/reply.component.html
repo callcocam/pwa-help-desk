@@ -1,0 +1,47 @@
+<div class="row">
+    <div class="col-sm-12">
+        <div class="card-box m-t-20">
+            <h4 class="m-t-0 font-18">
+                <b>{{ solicitacao.description }}?</b>
+            </h4>
+            <hr/>
+            <div class="media m-b-30" [class.hidden]="replyBy.id">
+                <img class="d-flex mr-3 rounded-circle thumb-sm" [src]="getCover(solicitacao.client.cover)" alt="{{ replyBy.name }}">
+                <div class="media-body">
+                    <span class="media-meta pull-right">{{ solicitacao.reply_date }}</span>
+                    <h4 class="text-primary font-16 m-0">{{ solicitacao.client.name }}</h4>
+                    <small class="text-muted">From: {{ solicitacao.client.email }}</small>
+                </div>
+            </div>
+            <hr/>
+            <div *ngFor="let reply of replys" class="media m-b-30">
+                <img class="d-flex mr-3 rounded-circle thumb-sm" [src]="getCover(reply.reply_by.cover)" alt="{{ reply.reply_by.name }}">
+                <div class="media-body">
+                    <span class="media-meta pull-right">{{ reply.reply_date }}</span>
+                    <h4 class="text-primary font-16 m-0">{{ reply.reply_by.name }}</h4>
+                    <small class="text-muted" [innerHTML]="reply.reply | sanitizeHtml"></small>
+                </div>
+                <hr/>
+            </div>
+
+            <app-anexo-create></app-anexo-create>
+            <div class="row">
+                <div class="col-sm-12">
+                    <div class="media m-b-0">
+                        <div class="media-body">
+                            <div class="card-box">
+                                <summernote [(ngModel)]="text" [options]="options" [disabled]="disabled"></summernote>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="text-right">
+                        <button (click)="save()" type="button" class="btn btn-primary waves-effect waves-light w-md m-b-30">Responder</button>
+                    </div>
+                </div>
+            </div>
+
+
+        </div>
+
+    </div>
+</div>

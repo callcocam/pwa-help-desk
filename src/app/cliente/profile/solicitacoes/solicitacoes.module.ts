@@ -1,43 +1,31 @@
-import { Ng2Summernote } from './../../../components/ng2-summernote';
-import { SummernoteModule } from './../../../components/editor/summernote/summernote.module';
-import { ComponentsModule } from './../../../components/components.module';
-
+import { SolicitacoesRoutingModule } from './solicitacoes-routing.module';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { FormsModule, ReactiveFormsModule } from "@angular/forms";
-import { SolicitacoesRoutingModule } from './solicitacoes-routing.module';
 import { CreateComponent } from './create/create.component';
 import { EditComponent } from './edit/edit.component';
 import { ViewComponent } from './view/view.component';
 import { ListComponent } from './list.component';
 import { DadosComponent } from './components/dados.component';
-import { UploadFileService, FormUploadComponent } from './../../../components/form-upload/index';
-import { TinymceModule } from '../../../components/editor/tinymce';
+import { AnexoListComponent } from './../anexos/anexo-list/anexo-list.component';
+import { SharedModule } from './../../../shared/shared.module';
 @NgModule({
   imports: [
     CommonModule,
-    FormsModule,
-    ReactiveFormsModule,
-    ComponentsModule,
-    SolicitacoesRoutingModule,
-    SummernoteModule,
-    TinymceModule
+    SharedModule,
+    SolicitacoesRoutingModule
   ],
   declarations: [
     CreateComponent,
-    EditComponent,
     ViewComponent,
     ListComponent,
     DadosComponent,
-    FormUploadComponent,
-    Ng2Summernote
+    AnexoListComponent
   ],
   exports: [
-    DadosComponent,
-    Ng2Summernote
+    DadosComponent
   ],
   providers: [
-    UploadFileService
+    
   ]
 })
 export class SolicitacoesModule { }

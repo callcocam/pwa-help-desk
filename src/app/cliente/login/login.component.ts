@@ -1,3 +1,4 @@
+import { JwtTokenService } from './services/jwt-token.service';
 import { LocalStorageService } from './../../services/local-storage.service';
 import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
@@ -39,7 +40,7 @@ export class LoginComponent implements OnInit {
     this.authService.login(data).subscribe(
       resp => {
         if (resp.result.user) {
-          this.storage.set('token',resp.result.token)
+          this.storage.set(this.storage.USER_TOKEN,resp.result.token)
           this.storage.setObject(this.storage.USER_KEY,resp.result.user)
           this.authService.check = true
           //this.router.navigate(['inicio']);
@@ -48,5 +49,8 @@ export class LoginComponent implements OnInit {
       }
     )
 
+  }
+  cadastrar(){
+    this.router.navigate(['cadastrar-se']);
   }
 }

@@ -1,0 +1,17 @@
+<div class="wrapper-page">
+
+  <div class="text-center">
+      <a routerLink="/inicio" class="logo-lg"><i class="mdi mdi-radar"></i> <span>Minton</span> </a>
+  </div>
+  <form [formGroup]="AppForm" method="post" class="form-horizontal m-t-20">
+    <app-input-component label="E-Mail:" errorMessage="Campo obrigatorio">
+      <input formControlName="email" type="text" class="form-control" id="email" placeholder="E-Mail">
+    </app-input-component>    
+    <app-input-component label="Senha de acesso:" errorMessage="Campo obrigatorio">
+      <input formControlName="password" type="password" class="form-control" id="password" placeholder="Senha de acesso">
+    </app-input-component>       
+    <button  [disabled]="!AppForm.valid" type="submit" (click)="login(AppForm.value)" class="btn btn-primary btn-custom w-md waves-effect waves-light" type="submit">Iniciar Sessão
+      </button>
+    <a routerLink="/inicio/cadastrar-se" class="btn btn-success">Cadastrar-se</a>
+  </form>  
+</div>

@@ -1,6 +1,6 @@
 import { LocalStorageService } from './../../../services/local-storage.service';
 import { Injectable } from '@angular/core';
-const TOKEN_KEY = 'token';
+const TOKEN_KEY = 'clientToken';
 @Injectable()
 export class JwtTokenService {
 

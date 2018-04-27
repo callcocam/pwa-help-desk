@@ -1,3 +1,4 @@
+import { NotificationService } from './../../../../components/snackbar/notification.service';
 import { Router } from '@angular/router';
 import { ResourcesService } from './../../../../services/resources.service';
 import { AuthService } from './../../../login/services/auth.service';
@@ -25,12 +26,14 @@ export class DadosComponent implements OnInit {
     private resource: ResourcesService,
     private formBuilder: FormBuilder,
     private shareService: ShareService,
-    private router: Router) { }
+    private router: Router,
+  private ns:NotificationService) { }
  
 
   ngOnInit() {
    
     this.AppForm = this.formBuilder.group({
+      id: this.formBuilder.control("", [Validators.required]), 
       empresa: this.formBuilder.control("", [Validators.required]),
       access: this.formBuilder.control("", [Validators.required]),
       name: this.formBuilder.control("", [Validators.required]),
@@ -58,6 +61,7 @@ export class DadosComponent implements OnInit {
     });
     this.user = this.storage.getObject(this.storage.USER_KEY);
 
+    this.AppForm.controls["id"].patchValue(this.user.id);
     this.AppForm.controls["empresa"].patchValue(this.user.empresa);
     this.AppForm.controls["access"].patchValue(this.user.access);
     this.AppForm.controls["name"].patchValue(this.user.name);
@@ -111,8 +115,9 @@ export class DadosComponent implements OnInit {
   }
   
   update(data) {
-    this.resource.update(data).subscribe(resp => {
-     console.log(resp)
+    this.resource.path = 'client'
+    this.resource.create(data).subscribe(resp => {
+      this.ns.notify(resp.result.msg)
     });
   }
   upload($event) {

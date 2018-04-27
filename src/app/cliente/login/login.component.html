@@ -13,7 +13,7 @@
         </app-input-component>       
         <button  [disabled]="!AppForm.valid" type="submit" (click)="login(AppForm.value)" class="btn btn-primary btn-custom w-md waves-effect waves-light" type="submit">Iniciar Sessão
           </button>
-        <a routerLink="/inicio/cadastrar-se" class="btn btn-success">Cadastrar-se</a>
+        <a (click)="cadastrar()" class="btn btn-success">Cadastrar-se!</a>
       </form>
     </div>
     <div class="clearfix"></div>

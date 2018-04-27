@@ -17,10 +17,10 @@ export class UploadFileService {
     formdata.append('assets', assets);
     formdata.append('tipo', 'upload');
     formdata.append('file', file);
- 
+    console.log(file)
+   
     const req = new HttpRequest('POST', `${this.shared.API.url}${rota}`, formdata, {
-      reportProgress: true,
-      responseType: 'json'
+      reportProgress: true
     });
  
     return this.http.request(req);

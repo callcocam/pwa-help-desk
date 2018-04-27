@@ -97,7 +97,7 @@
         </div>
         <button  [disabled]="!AppForm.valid" type="submit" (click)="create(AppForm.value)" class="btn btn-primary btn-custom w-md waves-effect waves-light" type="submit">Cadastrar-se
           </button>
-        <a routerLink="/inicio/login" class="btn btn-success">Ja sou cadastrado</a>
+        <a (click)="login()" class="btn btn-success">Ja sou cadastrado</a>
       </form>
     </div>
     <div class="clearfix"></div>
