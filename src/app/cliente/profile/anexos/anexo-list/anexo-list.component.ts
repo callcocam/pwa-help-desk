@@ -1,6 +1,7 @@
 import { ActivatedRoute } from '@angular/router';
 import { ResourcesService, SearchCriteria } from './../../../../services/resources.service';
 import { Component, OnInit } from '@angular/core';
+import { ShareService } from '../../../../services/share.service';
 
 @Component({
   selector: 'app-anexo-list',
@@ -11,7 +12,7 @@ export class AnexoListComponent implements OnInit {
 
   public anexos;
   public total;
-  constructor(private route: ActivatedRoute, private resources: ResourcesService) { }
+  constructor(private route: ActivatedRoute, private resources: ResourcesService, private shared:ShareService) { }
 
   ngOnInit() {
     this.resources.path = "anexo"
@@ -28,5 +29,12 @@ export class AnexoListComponent implements OnInit {
       )
     })
   }
+  getAnexo(name){
+    return this.shared.getCover(name)
+  }
 
+  downloadFile(filename){
+    this.resources.path = "anexo"
+    this.resources.DownloadFile(filename)
+  }
 }

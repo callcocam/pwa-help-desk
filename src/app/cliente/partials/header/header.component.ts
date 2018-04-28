@@ -25,7 +25,7 @@ export class HeaderComponent implements OnInit {
 
   logout(){
     this.storage.remove(this.storage.USER_KEY);
-    this.storage.remove('token')    
+    this.storage.remove(this.storage.USER_TOKEN)    
     this.authService.check = false
     // this.router.navigate(['inicio']);
     window.location.href = '/'

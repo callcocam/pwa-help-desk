@@ -1,6 +1,38 @@
-<h4 class="font-16"> <i class="fa fa-paperclip m-r-10 m-b-10"></i> Anexos <span>({{ total }})</span> </h4>
+<h4 class="font-16">
+    <i class="fa fa-paperclip m-r-10 m-b-10"></i> Anexos
+    <span>({{ total }})</span>
+</h4>
 <div class="row">
-    <div *ngFor="let anexo of anexos" class="col-sm-2 col-xs-4">
-        <a href="#"> <img src="assets/images/small/img1.jpg" alt="attachment" class="img-thumbnail img-responsive"> </a>
+    <div *ngFor="let anexo of anexos" class="col-lg-6 col-xs-12">
+        <div class="card-box widget-icon">
+            <div>
+                   <i  (click)="delete(anexo.id)" class="mdi mdi-delete-empty text-danger"></i>
+                <div class="wid-icon-info text-right">
+                    <p class="text-muted m-b-5 font-13 text-uppercase">{{ anexo.name }}</p>
+                    <h4 class="m-t-0 m-b-5 counter font-bold">{{ anexo.size }}</h4>
+                    <small class="text-success">
+                        <b>{{ anexo.type }}</b>
+                    </small>
+                </div>
+            </div>
+        </div>
     </div>
 </div>
+<hr/>
+<form [formGroup]="form">
+    <div class="form-group">
+        <div class="fileupload btn btn-secondary waves-effect">
+            <span>
+                <i class="ion-document-text m-r-5"></i>Anexar</span>
+            <input type="file" id="attachment" (change)="onFileChange($event)" #fileInput class="upload">
+        </div>
+        <button type="button" class="btn btn-danger" (click)="clearFile()">
+            <i class="ion-ios7-close-outline"></i> Cancelar</button>
+        <button type="button" (click)="onSubmit(form.value)" [disabled]="form.invalid || loading" class="btn btn-success">
+            <i class="ion-forward"></i> Enviar Arquivo
+            <i class="fa fa-spinner fa-spin fa-fw" *ngIf="loading"></i>
+        </button>
+    </div>
+
+</form>
+<hr/>

@@ -5,7 +5,8 @@ import { ShareService } from './share.service';
 import { JwtTokenService } from './../cliente/login/services/jwt-token.service';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-
+import { getFileNameFromResponseContentDisposition, saveFile } from './file-download-helper';
+import { ResponseContentType, RequestOptions } from '@angular/http';
 @Injectable()
 export class ResourcesService {
   public BASE_URL = "http://localhost:8585/";
@@ -15,29 +16,29 @@ export class ResourcesService {
     private http: HttpClient,
     private jwtToken: JwtTokenService,
     private shared: ShareService,
-    private localStorage:LocalStorageService
+    private localStorage: LocalStorageService
   ) {
     this.BASE_URL = this.shared.API.url;
   }
- 
-  merge(queryString?:any) {
-    if(this.localStorage.get(this.localStorage.USER_KEY)){
+
+  merge(queryString?: any) {
+    if (this.localStorage.get(this.localStorage.USER_KEY)) {
       queryString.empresa = this.localStorage.getObject(this.localStorage.USER_KEY).empresa
     }
-    if(this.localStorage.get(this.localStorage.ADMIN_KEY)){
+    if (this.localStorage.get(this.localStorage.ADMIN_KEY)) {
       queryString.empresa = this.localStorage.getObject(this.localStorage.ADMIN_KEY).empresa
     }
     this.httpOptions = {
-          params: queryString
-        }
-     return this.httpOptions;
+      params: queryString
+    }
+    return this.httpOptions;
   }
   getItem(id?: any): Observable<any> {
     return this.http.get(`${this.BASE_URL}${this.path}/${id}`);
   }
 
   getList(criteria?: any): Observable<any> {
-    if(criteria){
+    if (criteria) {
       return this.http.get(`${this.BASE_URL}${this.path}`, this.merge(criteria));
     }
     return this.http.get(`${this.BASE_URL}${this.path}`);
@@ -53,7 +54,7 @@ export class ResourcesService {
       data
     );
   }
-  updateStatus(data, params?,criteria?): Observable<any> {
+  updateStatus(data, params?, criteria?): Observable<any> {
     return this.http.put(
       `${this.BASE_URL}${this.path}?action=status`,
       data,
@@ -68,6 +69,28 @@ export class ResourcesService {
     );
   }
 
+  // downloadFile(data, filename) {
+  //   const fileName = getFileNameFromResponseContentDisposition(data);
+  //   //saveFile(res.blob(), fileName);
+  // }
+  DownloadFile(id): void {
+    this.getFile(`${this.BASE_URL}${this.path}/${id}`)
+      .subscribe(fileData => {
+         window.open(this.shared.getCover(fileData.result.name));
+      }
+      );
+  }
+
+  public getFile(path: string): Observable<any> {
+    let options = new RequestOptions({ responseType: ResponseContentType.Blob });
+    return this.http.get(path);
+  }
+  // downloadFile(id) {
+  //    return this.http.get<any>(`${this.BASE_URL}${this.path}/${id}`).subscribe(res => {
+  //     const fileName = getFileNameFromResponseContentDisposition(res);
+  //     saveFile(res.blob(), fileName);
+  //   });
+  // }
 }
 export class SearchCriteria {
   public zfTableItemPerPage: number = 10;
@@ -79,6 +102,6 @@ export class SearchCriteria {
   public zfTableStatus;
   public start_date: string = "";
   public end_date: string = "";
-  public empresa;  
+  public empresa;
 }
 

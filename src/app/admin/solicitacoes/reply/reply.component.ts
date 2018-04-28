@@ -44,32 +44,32 @@ export class ReplyComponent implements OnInit {
 
   ngOnInit() {
     this.route.params.subscribe(params => {
-      this.getItem(params);
+      this.id = params['id'];
+      this.getItem();
     })
   }
-  getItem(params) {
+  getItem() {
     this.resourse.path = 'solicitacao'
-    this.resourse.getItem(params['id']).subscribe(
+    this.resourse.getItem(this.id).subscribe(
       resp => {
         if (resp.result.reply_by) {
           this.replyBy = resp.result.reply_by;
         }
         this.solicitacao = resp.result;
-        this.getReplys(params['id']);
+        this.getReplys();
       })
   }
-  getReplys(id) {
+  getReplys() {
     this.resourse.path = 'solicitacao'
     let criteria = new SearchCriteria()
     let user = this.localStorage.getObject(this.localStorage.ADMIN_KEY).id
     criteria.zfTableColumn = JSON.stringify({
       receptionBy: user,
-      parent: id
+      parent: this.id
     });
     this.resourse.getList(criteria).subscribe(
       resp => {
         this.replys = resp.result.sEcho;
-        console.log(this.replys)
       }
     )
   }
@@ -92,7 +92,12 @@ export class ReplyComponent implements OnInit {
     this.resourse.create(this.reply).subscribe(
       resp => {
         this.ns.notify(resp.result.msg)
-        this.getReplys(this.solicitacao.id);
+        this.getReplys();
+        this.resourse.update({status:2},this.id).subscribe(
+          resp=>{
+            this.ns.notify(resp.result.msg)
+          }
+        )
       }
     )
   }
